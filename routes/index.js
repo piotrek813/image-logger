@@ -3,7 +3,7 @@ const router = express.Router();
 const path = require("path");
 
 router.get("/", function (req, res, next) {
-  res.sendFile(path.join(__dirname, "images/bg.jpg"));
+  res.sendFile(path.join(__dirname, "../public/images/bg.jpg"));
 });
 
 module.exports = router;
