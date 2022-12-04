@@ -12,13 +12,18 @@ var accessLogStream = fs.createWriteStream(path.join(__dirname, "access.log"), {
   flags: "a",
 });
 
-app.use(morgan("combined", { stream: accessLogStream }));
+app.use(
+  morgan("combined", {
+    stream: accessLogStream,
+    skip: (req, res) => !req.originalUrl.startsWith("/image"),
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
+app.use("/image", indexRouter);
 app.use("/log", logRouter);
 
 module.exports = app;
